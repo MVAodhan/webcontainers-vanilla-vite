@@ -5,11 +5,13 @@ export const files = {
 		file: {
 			contents: `
   import express from 'express';
+  import axios from 'axios'
   const app = express();
   const port = 3111;
   
-  app.get('/', (req, res) => {
-    res.send('Welcome to a WebContainers app! 🥳');
+  app.get('/', async (req, res) => {
+    const schedule = await axios.get('https://www.learnwithjason.dev/api/v2/schedule')
+    res.send(schedule.data);
   });
   
   app.listen(port, () => {
@@ -20,17 +22,18 @@ export const files = {
 	"package.json": {
 		file: {
 			contents: `
-  {
-    "name": "example-app",
-    "type": "module",
-    "dependencies": {
-      "express": "latest",
-      "nodemon": "latest"
-    },
-    "scripts": {
-      "start": "nodemon --watch './' index.js"
-    }
-  }`,
+      {
+        "name": "example-app",
+        "type": "module",
+        "dependencies": {
+            "axios": "^1.4.0",
+            "express": "latest",
+            "nodemon": "latest"
+        },
+        "scripts": {
+            "start": "nodemon --watch './' index.js"
+        }
+    }`,
 		},
 	},
 };

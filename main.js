@@ -28,8 +28,8 @@ let webcontainerInstance;
 window.addEventListener("load", async () => {
 	textareaEl.value = files["index.js"].file.contents;
 
-	textareaEl.addEventListener("input", () => {
-		writeIndexJS(files["index.js"].file.contents);
+	textareaEl.addEventListener("input", (e) => {
+		writeIndexJS(e.target.value);
 	});
 	const fitAddon = new FitAddon();
 	const terminal = new Terminal({
