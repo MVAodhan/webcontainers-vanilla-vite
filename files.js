@@ -4,19 +4,30 @@ export const files = {
 	"index.js": {
 		file: {
 			contents: `
-  import express from 'express';
-  import axios from 'axios'
-  const app = express();
-  const port = 3111;
-  
-  app.get('/', async (req, res) => {
-    const schedule = await axios.get('https://www.learnwithjason.dev/api/v2/schedule')
-    res.send(schedule.data);
-  });
-  
-  app.listen(port, () => {
-    console.log(\`App is live at http://localhost:\${port}\`);
-  });`,
+      const browserSync = require("browser-sync");
+      browserSync.init({
+        server: {
+          baseDir: "./",
+        },
+        files: "*.html",
+      });`,
+		},
+	},
+	"index.html": {
+		file: {
+			contents: `
+      <!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>My Project</title>
+	</head>
+	<body>
+		<h1>Hello Aodhan</h1>
+	</body>
+</html>
+`,
 		},
 	},
 	"package.json": {
@@ -24,14 +35,11 @@ export const files = {
 			contents: `
       {
         "name": "example-app",
-        "type": "module",
         "dependencies": {
-            "axios": "^1.4.0",
-            "express": "latest",
-            "nodemon": "latest"
+          "browser-sync": "^2.29.1"
         },
         "scripts": {
-            "start": "nodemon --watch './' index.js"
+          "dev": "node index.js"
         }
     }`,
 		},

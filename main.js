@@ -8,25 +8,22 @@ import { FitAddon } from "xterm-addon-fit";
 document.querySelector("#app").innerHTML = `
   <div class="container">
     <div class="editor">
-      <textarea>I am a textarea</textarea>
+      <textarea class='editor-one'>I am a textarea</textarea>
     </div>
     <div class="preview">
       <iframe class="output"></iframe>
     </div>
   </div>
-  <button class="btn">index.js</button>
-  <button class="btn">package.json</button>
   <div class="terminal-container">
   	<div class="terminal"></div>
   </div>
-  
 `;
 
 /** @type {import('@webcontainer/api').WebContainer}  */
 let webcontainerInstance;
 
 window.addEventListener("load", async () => {
-	textareaEl.value = files["index.js"].file.contents;
+	textareaEl.value = files["index.html"].file.contents;
 
 	textareaEl.addEventListener("input", (e) => {
 		writeIndexJS(e.target.value);
@@ -44,6 +41,7 @@ window.addEventListener("load", async () => {
 	// Wait for `server-ready` event
 	webcontainerInstance.on("server-ready", (port, url) => {
 		iframeEl.src = url;
+		console.log(url, port);
 	});
 
 	const shellProcess = await startShell(terminal);
@@ -84,22 +82,19 @@ async function startShell(terminal) {
 /** @param {string} content*/
 
 async function writeIndexJS(content) {
-	await webcontainerInstance.fs.writeFile("/index.js", content);
+	await webcontainerInstance.fs.writeFile("/index.html", content);
 }
 
 /** @type {HTMLIFrameElement | null} */
 const iframeEl = document.querySelector("iframe");
 
 /** @type {HTMLTextAreaElement | null} */
-const textareaEl = document.querySelector("textarea");
+const textareaEl = document.querySelector(".editor-one");
+
+/** @type {HTMLTextAreaElement | null} */
+const textareaElTwo = document.querySelector(".second-editor");
 
 /** @type {HTMLTextAreaElement | null} */
 const terminalEl = document.querySelector(".terminal");
 
 const btns = document.querySelectorAll(".btn");
-
-btns.forEach((btn) => {
-	btn.addEventListener("click", (e) => {
-		textareaEl.value = files[e.target.innerHTML].file.contents;
-	});
-});
