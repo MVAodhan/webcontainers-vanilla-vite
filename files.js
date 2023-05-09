@@ -1,6 +1,14 @@
 /** @satisfies {import('@webcontainer/api').FileSystemTree} */
 
 export const files = {
+	"index.css": {
+		file: {
+			contents: `
+      .red{
+		color: red
+	  }`,
+		},
+	},
 	"index.js": {
 		file: {
 			contents: `
@@ -8,8 +16,10 @@ export const files = {
       browserSync.init({
         server: {
           baseDir: "./",
+		  port: 8080
         },
         files: "*.html",
+		open: 'local'
       });`,
 		},
 	},
@@ -22,6 +32,7 @@ export const files = {
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>My Project</title>
+		<link rel="stylesheet" href="./index.css" />
 	</head>
 	<body>
 		<h1>Hello Aodhan</h1>

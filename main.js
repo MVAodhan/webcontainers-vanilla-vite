@@ -40,7 +40,8 @@ window.addEventListener("load", async () => {
 
 	// Wait for `server-ready` event
 	webcontainerInstance.on("server-ready", (port, url) => {
-		iframeEl.src = url;
+		iframeEl.src =
+			"https://httplocalhost5173-ygzs--3000--9c984a48.local-corp.webcontainer.io/";
 		console.log(url, port);
 	});
 
